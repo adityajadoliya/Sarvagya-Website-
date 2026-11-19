@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAIHologram();
   initDigitalGlobe();
   initFooterParticles();
+  initCursorDrone();
 });
 
 /* --------------------------------------------------------------------------
@@ -243,7 +244,7 @@ function initHeroCodeToVR() {
       label: 'Stage 1/4: Initializing VR Grid',
       shader: 'GRID_MATRIX',
       code:
-`// Sarvagya WebXR Core v4.2
+        `// Sarvagya WebXR Core v4.2
 import { VREngine, EmeraldScene } from '@sarvagya/xr';
 
 const world = new EmeraldScene({
@@ -256,7 +257,7 @@ world.buildPerspectiveGrid(64, 64);`
       label: 'Stage 2/4: Constructing EV Chassis',
       shader: 'MESH_WIREFRAME',
       code:
-`
+        `
 const evTwin = VREngine.spawnVehicle({
   model: 'Autonomous_EV_Prototype',
   wireframe: '#00f5d4',
@@ -268,7 +269,7 @@ evTwin.extrudeChassis(3.8, 1.9);`
       label: 'Stage 3/4: Attaching AR HUD Rings',
       shader: 'HOLO_TELEMETRY',
       code:
-`
+        `
 const arHud = evTwin.attachAROverlay({
   lidarRings: 3,
   telemetryNodes: 18,
@@ -280,7 +281,7 @@ arHud.enableSpatialTracking(true);`
       label: 'Stage 4/4: Full Immersive VR Live',
       shader: 'XR_IMMERSION_ON',
       code:
-`
+        `
 VREngine.compileAndStream(world, {
   particles: 240,
   bloom: 'cyan-pink-emerald'
@@ -413,11 +414,11 @@ VREngine.compileAndStream(world, {
     [-0.65, -0.55, -0.55], [0.55, -0.55, -0.55], [0.55, -0.55, 0.55], [-0.65, -0.55, 0.55]
   ];
   const carEdges = [
-    [0,1],[1,2],[2,3],[3,0],
-    [4,5],[5,6],[6,7],[7,4],
-    [0,4],[1,5],[2,6],[3,7],
-    [8,9],[9,10],[10,11],[11,8],
-    [4,8],[5,9],[6,10],[7,11]
+    [0, 1], [1, 2], [2, 3], [3, 0],
+    [4, 5], [5, 6], [6, 7], [7, 4],
+    [0, 4], [1, 5], [2, 6], [3, 7],
+    [8, 9], [9, 10], [10, 11], [11, 8],
+    [4, 8], [5, 9], [6, 10], [7, 11]
   ];
 
   let angle = 0;
@@ -602,7 +603,7 @@ function initRealityLab() {
       label: 'MODEL: EV-CHASSIS_V4',
       lang: 'C++ / WebGL',
       code:
-`struct EVChassis {
+        `struct EVChassis {
   float wheelbase = 2.95f;
   vec3 aeroProfile = { 0.21, 1.42, 4.65 };
   bool lidarActive = true;
@@ -614,7 +615,7 @@ render3DWireframe<EVChassis>("cyan-pink");`
       label: 'MODEL: SMART-FACTORY_TWIN',
       lang: 'TypeScript / BIM',
       code:
-`const plant = new DigitalTwin("SmartPlant");
+        `const plant = new DigitalTwin("SmartPlant");
 plant.addTower({ floors: 8, safetyAR: true });
 plant.connectSensors(["temp", "robotics"]);
 
@@ -624,7 +625,7 @@ plant.compileInteractive3D();`
       label: 'MODEL: VR-COCKPIT_SIM',
       lang: 'GLSL / WebXR',
       code:
-`uniform mat4 vrHeadsetMatrix;
+        `uniform mat4 vrHeadsetMatrix;
 void main() {
   vec3 hud = projectARConsole(vrHeadsetMatrix);
   gl_FragColor = neonEmeraldGlow(hud);
@@ -657,7 +658,7 @@ void main() {
       return [cx + rx * s * fov, cy + y * s * fov];
     });
 
-    const edges = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+    const edges = [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]];
     ctx.strokeStyle = color;
     ctx.shadowColor = color;
     ctx.shadowBlur = 10;
@@ -876,5 +877,144 @@ function initFooterParticles() {
     ctx.globalAlpha = 1;
     requestAnimationFrame(animate);
   }
+  animate();
+}
+
+/* --------------------------------------------------------------------------
+   CREATIVE CURSOR DRONE COMPANION
+   -------------------------------------------------------------------------- */
+function initCursorDrone() {
+  const drone = document.getElementById('cursor-drone');
+  const bodyWrap = document.getElementById('drone-body-wrap');
+  const hudTag = document.getElementById('drone-hud-tag');
+  const trailCanvas = document.getElementById('drone-trail-canvas');
+  if (!drone || !bodyWrap || !trailCanvas) return;
+
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const ctx = trailCanvas.getContext('2d');
+  function resize() {
+    trailCanvas.width = window.innerWidth;
+    trailCanvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Target cursor position & drone physics state
+  const target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  const pos = { x: target.x, y: target.y };
+  const vel = { x: 0, y: 0 };
+  const sparks = [];
+  const pulses = [];
+  let hoverTime = 0;
+
+  window.addEventListener('mousemove', e => {
+    // Center the drone directly on the cursor coordinates
+    target.x = e.clientX;
+    target.y = e.clientY;
+    if (!drone.classList.contains('visible')) {
+      drone.classList.add('visible');
+    }
+
+    const interactive = e.target.closest('a, button, .course-card, .mini-feature-card, .ai-chip, .reality-tab');
+    if (interactive) {
+      drone.classList.add('locked');
+      if (hudTag) hudTag.textContent = 'LOCKED // SCAN';
+    } else {
+      drone.classList.remove('locked');
+      if (hudTag) hudTag.textContent = 'DRONE-01 // TRACK';
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    drone.classList.remove('visible');
+  });
+
+  window.addEventListener('mousedown', e => {
+    pulses.push({
+      x: e.clientX,
+      y: e.clientY,
+      r: 4,
+      alpha: 0.9,
+      color: drone.classList.contains('locked') ? '#ff2a85' : '#00f5d4'
+    });
+  });
+
+  function animate() {
+    hoverTime += 0.06;
+
+    // Responsive spring-damper physics so the drone feels crisp as the cursor
+    const dx = target.x - pos.x;
+    const dy = target.y - pos.y;
+    vel.x = vel.x * 0.62 + dx * 0.24;
+    vel.y = vel.y * 0.62 + dy * 0.24;
+    pos.x += vel.x;
+    pos.y += vel.y;
+
+    const speed = Math.hypot(vel.x, vel.y);
+    const bobY = speed < 0.8 ? Math.sin(hoverTime) * 2.2 : 0;
+    const tilt = Math.max(-22, Math.min(22, vel.x * 1.45));
+
+    drone.style.transform = `translate3d(${pos.x - 39}px, ${pos.y - 30 + bobY}px, 0)`;
+    bodyWrap.style.transform = `rotate(${tilt.toFixed(2)}deg)`;
+
+    // Emit thruster sparks when moving
+    if (speed > 1.2 && drone.classList.contains('visible')) {
+      sparks.push({
+        x: pos.x + (Math.random() - 0.5) * 14,
+        y: pos.y + 8 + bobY,
+        vx: -vel.x * 0.18 + (Math.random() - 0.5) * 0.8,
+        vy: -vel.y * 0.18 + Math.random() * 0.9,
+        r: Math.random() * 2.2 + 1.1,
+        alpha: 0.85,
+        color: drone.classList.contains('locked') ? '#ff2a85' : (Math.random() > 0.35 ? '#00f5d4' : '#f5b841')
+      });
+    }
+
+    ctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+
+    // Draw thruster trail sparks
+    for (let i = sparks.length - 1; i >= 0; i--) {
+      const s = sparks[i];
+      s.x += s.vx;
+      s.y += s.vy;
+      s.alpha -= 0.035;
+      if (s.alpha <= 0) {
+        sparks.splice(i, 1);
+        continue;
+      }
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.color;
+      ctx.globalAlpha = s.alpha;
+      ctx.shadowColor = s.color;
+      ctx.shadowBlur = 8;
+      ctx.fill();
+    }
+
+    // Draw click sonar pulses
+    for (let i = pulses.length - 1; i >= 0; i--) {
+      const p = pulses[i];
+      p.r += 3.2;
+      p.alpha -= 0.04;
+      if (p.alpha <= 0) {
+        pulses.splice(i, 1);
+        continue;
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 1.6;
+      ctx.globalAlpha = p.alpha;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 10;
+      ctx.stroke();
+    }
+
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+    requestAnimationFrame(animate);
+  }
+
   animate();
 }
