@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarvagya Institute – Innovating the Future with AR, VR &amp; Automotive Software</title>
+  <meta name="description" content="Sarvagya Institute specializes in AR/VR development, automotive software solutions, immersive industrial simulations, and advanced digital training technologies. Transforming Ideas into Immersive Digital Experiences." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 9. FUTURISTIC LOADING SCREEN -->
+  <div id="loader-screen" class="loader-screen" aria-hidden="true">
+    <div class="loader-grid"></div>
+    <div class="loader-content">
+      <div class="loader-logo-wrap">
+        <svg class="loader-svg" viewBox="0 0 220 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Sun Rays (Gold) -->
+          <g class="logo-rays">
+            <line x1="110" y1="8" x2="110" y2="42" stroke="#f5b841" stroke-width="3" stroke-linecap="round" />
+            <line x1="88" y1="12" x2="96" y2="44" stroke="#f5b841" stroke-width="2.8" stroke-linecap="round" />
+            <line x1="132" y1="12" x2="124" y2="44" stroke="#f5b841" stroke-width="2.8" stroke-linecap="round" />
+            <line x1="66" y1="22" x2="82" y2="50" stroke="#f5b841" stroke-width="2.6" stroke-linecap="round" />
+            <line x1="154" y1="22" x2="138" y2="50" stroke="#f5b841" stroke-width="2.6" stroke-linecap="round" />
+            <line x1="46" y1="38" x2="68" y2="60" stroke="#f5b841" stroke-width="2.4" stroke-linecap="round" />
+            <line x1="174" y1="38" x2="152" y2="60" stroke="#f5b841" stroke-width="2.4" stroke-linecap="round" />
+            <line x1="30" y1="58" x2="54" y2="72" stroke="#f5b841" stroke-width="2.2" stroke-linecap="round" />
+            <line x1="190" y1="58" x2="166" y2="72" stroke="#f5b841" stroke-width="2.2" stroke-linecap="round" />
+          </g>
+          <!-- Graduation Cap (Cyan) -->
+          <g class="logo-cap">
+            <polygon points="110,56 196,86 110,116 24,86" stroke="#00f5d4" stroke-width="3" fill="rgba(0,245,212,0.12)" stroke-linejoin="round" />
+            <path d="M56,99 L56,142 L110,170 L164,142 L164,99" stroke="#00f5d4" stroke-width="3" fill="rgba(0,245,212,0.08)" stroke-linejoin="round" />
+            <line x1="110" y1="116" x2="110" y2="170" stroke="#00f5d4" stroke-width="2" />
+            <path d="M110,86 L186,86 L186,126" stroke="#ff2a85" stroke-width="2.5" stroke-linecap="round" />
+            <circle cx="186" cy="132" r="6" stroke="#ff2a85" stroke-width="2.5" fill="rgba(255,42,133,0.25)" />
+          </g>
+          <!-- Wings / Book Leaves (Azure & Cyan) -->
+          <g class="logo-wings">
+            <path d="M98,186 C72,158 44,142 18,136 C24,162 56,178 98,196 Z" stroke="#1e90ff" stroke-width="2.5" fill="rgba(30,144,255,0.18)" />
+            <path d="M96,204 C70,182 46,172 24,168 C30,188 58,200 96,214 Z" stroke="#1e90ff" stroke-width="2.5" fill="rgba(30,144,255,0.14)" />
+            <path d="M94,220 C76,204 58,198 44,196 C50,210 68,218 94,226 Z" stroke="#00f5d4" stroke-width="2.2" fill="rgba(0,245,212,0.12)" />
+
+            <path d="M122,186 C148,158 176,142 202,136 C196,162 164,178 122,196 Z" stroke="#1e90ff" stroke-width="2.5" fill="rgba(30,144,255,0.18)" />
+            <path d="M124,204 C150,182 174,172 196,168 C190,188 162,200 124,214 Z" stroke="#1e90ff" stroke-width="2.5" fill="rgba(30,144,255,0.14)" />
+            <path d="M126,220 C144,204 162,198 176,196 C170,210 152,218 126,226 Z" stroke="#00f5d4" stroke-width="2.2" fill="rgba(0,245,212,0.12)" />
+          </g>
+        </svg>
+        <div class="loader-scanline"></div>
+      </div>
+      <div class="loader-brand">SARVAGYA <span>INSTITUTE</span></div>
+      <div class="loader-status-row">
+        <span class="loader-dot"></span>
+        <span id="loader-text" class="loader-text">Initializing Future...</span>
+      </div>
+      <div class="loader-bar-track">
+        <div id="loader-bar-fill" class="loader-bar-fill"></div>
+      </div>
+      <div id="loader-percent" class="loader-percent">0%</div>
+    </div>
+  </div>
+
+  <!-- 8. INTERACTIVE PARTICLE & LIGHTNING BACKGROUND -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- 3. 3D FLOATING ELEMENTS WITH PARALLAX -->
+  <div id="floating-layer" class="floating-layer" aria-hidden="true">
+    <div class="float-item float-code" data-depth="0.03" style="top: 14%; left: 4%;">&lt;/&gt;</div>
+    <div class="float-item float-code pink" data-depth="0.05" style="top: 28%; right: 6%;">{ VR }</div>
+    <div class="float-item float-code cyan" data-depth="0.04" style="top: 62%; left: 5%;">0101</div>
+    <div class="float-item float-code" data-depth="0.06" style="top: 78%; right: 8%;">λ AR()</div>
+
+    <!-- 3D Wireframe Cubes -->
+    <div class="float-cube" data-depth="0.045" style="top: 20%; left: 16%;">
+      <div class="cube-3d">
+        <div class="face front"></div>
+        <div class="face back"></div>
+        <div class="face left"></div>
+        <div class="face right"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+      </div>
+    </div>
+    <div class="float-cube pink-cube" data-depth="0.065" style="top: 52%; right: 10%;">
+      <div class="cube-3d">
+        <div class="face front"></div>
+        <div class="face back"></div>
+        <div class="face left"></div>
+        <div class="face right"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+      </div>
+    </div>
+
+    <!-- Floating Digital Laptop / Headset Silhouettes -->
+    <div class="float-holo-card" data-depth="0.035" style="top: 40%; left: 2%;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <rect x="3" y="4" width="18" height="12" rx="2" />
+        <path d="M2 20h20" />
+        <path d="M8 10l2 2-2 2M13 14h3" />
+      </svg>
+    </div>
+    <div class="float-holo-card pink" data-depth="0.05" style="top: 85%; left: 14%;">
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M2 10a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v4a3 3 0 0 1-3 3h-3.2a2 2 0 0 1-1.7-.9l-.8-1.2a1.5 1.5 0 0 0-2.6 0l-.8 1.2a2 2 0 0 1-1.7.9H5a3 3 0 0 1-3-3v-4Z" />
+        <circle cx="8" cy="11" r="1.5" />
+        <circle cx="16" cy="11" r="1.5" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand">
+        <div class="nav-logo-badge">
+          <img src="assets/logo.png" alt="Sarvagya Institute Logo" />
+        </div>
+        <div class="nav-brand-text">
+          <span class="brand-title">SARVAGYA</span>
+          <span class="brand-sub">INSTITUTE</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#programs" class="nav-link">Core Areas</a>
+        <a href="#reality-lab" class="nav-link">Code-to-Reality</a>
+        <a href="#ai-assistant" class="nav-link">AI Hologram</a>
+        <a href="#global-network" class="nav-link">Global Network</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#programs" class="btn-enquire">
+          <span>Enquire Now</span>
+          <span class="arrow">→</span>
+        </a>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. HERO SECTION: LIVE CODING -> VR GENERATION -->
+    <section id="home" class="hero-section">
+      <div class="hero-glow-orb orb-emerald"></div>
+      <div class="hero-glow-orb orb-cyan"></div>
+      <div class="hero-glow-orb orb-pink"></div>
+
+      <div class="container hero-container">
+        <div class="hero-header-block">
+          <div class="hero-eyebrow">
+            <span class="eyebrow-pulse"></span>
+            <span>NEXT-GEN SKILLING FOR AR, VR &amp; AUTOMOTIVE SOFTWARE</span>
+          </div>
+          <h1 class="hero-title">
+            Transforming Ideas into <br />
+            <span class="gradient-text">Immersive Digital Experiences.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Sarvagya Institute pioneers hands-on education and industrial solutions in Augmented Reality, Virtual Reality, and Automotive Software—bridging live code with living 3D worlds.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#programs" class="btn-primary-glow">
+              <span>Explore Programs</span>
+              <span class="btn-icon">→</span>
+            </a>
+            <a href="#reality-lab" class="btn-glass-outline">
+              <span class="play-ring">▶</span>
+              <span>Watch Live Simulation</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- LIVE CODING -> 3D VR GENERATION SPLIT STAGE -->
+        <div class="hero-stage-grid">
+          <!-- Left Side: VS Code Style Editor -->
+          <div class="vscode-window glass-panel">
+            <div class="vscode-titlebar">
+              <div class="window-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="vscode-tabs">
+                <div class="vscode-tab active">
+                  <span class="ts-badge">TS</span>
+                  <span>sarvagya_vr_engine.ts</span>
+                </div>
+                <div class="vscode-tab">
+                  <span class="shader-badge">GL</span>
+                  <span>automotive_hud.glsl</span>
+                </div>
+              </div>
+              <div class="vscode-status-pill">LIVE COMPILING</div>
+            </div>
+
+            <div class="vscode-body">
+              <div class="line-numbers" id="vscode-lines"></div>
+              <pre class="code-display"><code id="typed-code"></code><span class="code-cursor">|</span></pre>
+            </div>
+
+            <div class="vscode-statusbar">
+              <div class="status-left">
+                <span class="branch-tag">⎇ main*</span>
+                <span id="vr-build-stage">Stage 1/4: Initializing VR Grid</span>
+              </div>
+              <div class="status-right">
+                <span>TypeScript</span>
+                <span>WebXR 2.0</span>
+                <span class="fps-tag">60 FPS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Particle Energy Bridge -->
+          <div class="energy-bridge" aria-hidden="true">
+            <canvas id="bridge-canvas"></canvas>
+            <div class="bridge-badge">
+              <span>DATA STREAM</span>
+              <div class="bridge-pulse"></div>
+            </div>
+          </div>
+
+          <!-- Right Side: 3D VR World Being Generated -->
+          <div class="vr-viewport glass-panel">
+            <div class="vr-hud-top">
+              <div class="vr-badge-live">
+                <span class="rec-dot"></span>
+                <span>VR ENGINE OUTPUT</span>
+              </div>
+              <div class="vr-telemetry">
+                <span id="vr-poly-count">MESH: 0%</span>
+                <span id="vr-shader-state">SHADER: STANDBY</span>
+              </div>
+            </div>
+
+            <canvas id="hero-vr-canvas"></canvas>
+
+            <div class="vr-hud-bottom">
+              <div class="vr-stage-pills">
+                <span class="stage-pill active" data-stage="0">01. Grid</span>
+                <span class="stage-pill" data-stage="1">02. Chassis</span>
+                <span class="stage-pill" data-stage="2">03. AR HUD</span>
+                <span class="stage-pill" data-stage="3">04. Full VR</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reference-inspired Bottom Feature Pills -->
+        <div class="hero-bottom-cards">
+          <div class="mini-feature-card">
+            <div class="mini-icon cyan-glow">AR</div>
+            <div>
+              <h3>Augmented Reality</h3>
+              <p>Interactive 3D overlays &amp; smart learning</p>
+            </div>
+            <span class="mini-arrow">→</span>
+          </div>
+          <div class="mini-feature-card">
+            <div class="mini-icon pink-glow">VR</div>
+            <div>
+              <h3>Virtual Reality</h3>
+              <p>Immersive industrial &amp; safety worlds</p>
+            </div>
+            <span class="mini-arrow">→</span>
+          </div>
+          <div class="mini-feature-card">
+            <div class="mini-icon gold-glow">EV</div>
+            <div>
+              <h3>Automotive Software</h3>
+              <p>Vehicle simulations &amp; digital cockpits</p>
+            </div>
+            <span class="mini-arrow">→</span>
+          </div>
+          <div class="mini-feature-card">
+            <div class="mini-icon emerald-glow">AI</div>
+            <div>
+              <h3>Industrial Training</h3>
+              <p>Future-ready technical &amp; safety skills</p>
+            </div>
+            <span class="mini-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ANIMATED DIGITAL STATISTICS -->
+    <section class="stats-section" id="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card glass-panel">
+            <div class="stat-icon">🎓</div>
+            <div class="stat-number" data-target="5200" data-suffix="+">0</div>
+            <div class="stat-label">Students Trained</div>
+            <div class="stat-bar"><span style="width: 88%"></span></div>
+          </div>
+          <div class="stat-card glass-panel">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-number" data-target="48" data-suffix="+">0</div>
+            <div class="stat-label">Courses Available</div>
+            <div class="stat-bar"><span style="width: 76%"></span></div>
+          </div>
+          <div class="stat-card glass-panel">
+            <div class="stat-icon">🚀</div>
+            <div class="stat-number" data-target="340" data-suffix="+">0</div>
+            <div class="stat-label">Projects Completed</div>
+            <div class="stat-bar"><span style="width: 92%"></span></div>
+          </div>
+          <div class="stat-card glass-panel">
+            <div class="stat-icon">🛠️</div>
+            <div class="stat-number" data-target="85" data-suffix="+">0</div>
+            <div class="stat-label">Industry Skills</div>
+            <div class="stat-bar"><span style="width: 84%"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. FUTURISTIC COURSE & CORE WORKING AREAS CARDS -->
+    <section class="programs-section" id="programs">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">CORE WORKING AREAS &amp; PROGRAMS</span>
+          <h2>Engineered for <span class="gradient-text">Tomorrow’s Industries</span></h2>
+          <p>
+            Practical, simulation-first programs and enterprise solutions across Augmented Reality, Virtual Reality, Automotive Software, and Digital Engineering.
+          </p>
+        </div>
+
+        <div class="courses-grid">
+          <!-- Card 1: AR -->
+          <article class="course-card tilt-card">
+            <div class="card-glow-border"></div>
+            <div class="card-inner">
+              <div class="icon-3d-wrap cyan-3d">
+                <div class="icon-3d-box">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 18L24 10L40 18L24 26L8 18Z" />
+                    <path d="M8 18V30L24 38L40 30V18" />
+                    <path d="M24 26V38" />
+                  </svg>
+                </div>
+              </div>
+              <span class="card-badge">01 / IMMERSIVE</span>
+              <h3>Augmented Reality (AR)</h3>
+              <p>
+                Developing interactive AR applications, real-time 3D visualizations, and hands-on digital training overlays for modern hardware.
+              </p>
+              <ul class="card-tags">
+                <li>WebAR</li>
+                <li>Spatial 3D</li>
+                <li>Holo-UI</li>
+              </ul>
+              <a href="#reality-lab" class="card-cta">Explore Module <span>→</span></a>
+            </div>
+          </article>
+
+          <!-- Card 2: VR -->
+          <article class="course-card tilt-card">
+            <div class="card-glow-border pink-border"></div>
+            <div class="card-inner">
+              <div class="icon-3d-wrap pink-3d">
+                <div class="icon-3d-box">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="6" y="15" width="36" height="18" rx="6" />
+                    <circle cx="17" cy="24" r="4" />
+                    <circle cx="31" cy="24" r="4" />
+                    <path d="M21 24h6" />
+                  </svg>
+                </div>
+              </div>
+              <span class="card-badge pink">02 / SIMULATION</span>
+              <h3>Virtual Reality (VR)</h3>
+              <p>
+                Creating hyper-realistic VR simulations, virtual training environments, and multi-user industrial learning experiences.
+              </p>
+              <ul class="card-tags">
+                <li>Unreal / Unity</li>
+                <li>WebXR</li>
+                <li>Haptics</li>
+              </ul>
+              <a href="#reality-lab" class="card-cta">Explore Module <span>→</span></a>
+            </div>
+          </article>
+
+          <!-- Card 3: Automotive Software -->
+          <article class="course-card tilt-card">
+            <div class="card-glow-border gold-border"></div>
+            <div class="card-inner">
+              <div class="icon-3d-wrap gold-3d">
+                <div class="icon-3d-box">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 28l4-10h20l4 10" />
+                    <rect x="7" y="28" width="34" height="8" rx="3" />
+                    <circle cx="14" cy="36" r="3" />
+                    <circle cx="34" cy="36" r="3" />
+                  </svg>
+                </div>
+              </div>
+              <span class="card-badge gold">03 / MOBILITY</span>
+              <h3>Automotive Software</h3>
+              <p>
+                Developing next-gen vehicle simulations, ADAS telemetry interfaces, and digital cockpit applications for the mobility sector.
+              </p>
+              <ul class="card-tags">
+                <li>AUTOSAR</li>
+                <li>EV Twin</li>
+                <li>ADAS Sim</li>
+              </ul>
+              <a href="#reality-lab" class="card-cta">Explore Module <span>→</span></a>
+            </div>
+          </article>
+
+          <!-- Card 4: Industrial Training Solutions -->
+          <article class="course-card tilt-card">
+            <div class="card-glow-border"></div>
+            <div class="card-inner">
+              <div class="icon-3d-wrap emerald-3d">
+                <div class="icon-3d-box">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="24" cy="24" r="14" />
+                    <path d="M24 14v10l7 4" />
+                    <path d="M12 12l4 4M36 12l-4 4" />
+                  </svg>
+                </div>
+              </div>
+              <span class="card-badge">04 / ENTERPRISE</span>
+              <h3>Industrial Training Solutions</h3>
+              <p>
+                AR/VR-powered training modules engineered to elevate technical mastery, workplace safety, and operational efficiency.
+              </p>
+              <ul class="card-tags">
+                <li>Safety VR</li>
+                <li>Digital Twin</li>
+                <li>SOP Labs</li>
+              </ul>
+              <a href="#reality-lab" class="card-cta">Explore Module <span>→</span></a>
+            </div>
+          </article>
+
+          <!-- Card 5: Software Development -->
+          <article class="course-card tilt-card">
+            <div class="card-glow-border pink-border"></div>
+            <div class="card-inner">
+              <div class="icon-3d-wrap cyan-3d">
+                <div class="icon-3d-box">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 16l-8 8 8 8" />
+                    <path d="M32 16l8 8-8 8" />
+                    <path d="M27 12l-6 24" />
+                  </svg>
+                </div>
+              </div>
+              <span class="card-badge pink">05 / ENGINEERING</span>
+              <h3>Software Development</h3>
+              <p>
+                Building customized enterprise software, cloud-connected dashboards, and interactive digital solutions for modern businesses.
+              </p>
+              <ul class="card-tags">
+                <li>Full-Stack</li>
+                <li>3D WebGL</li>
+                <li>APIs</li>
+              </ul>
+              <a href="#reality-lab" class="card-cta">Explore Module <span>→</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SOFTWARE-TO-REALITY ANIMATION -->
+    <section class="reality-section" id="reality-lab">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">SOFTWARE-TO-REALITY PIPELINE</span>
+          <h2>Watch <span class="gradient-text">Code Morph into 3D Reality</span></h2>
+          <p>
+            Select a blueprint below to see how Sarvagya’s curriculum turns structured software algorithms into real-world 3D engineering models.
+          </p>
+        </div>
+
+        <div class="reality-stage glass-panel">
+          <div class="reality-controls">
+            <button class="reality-tab active" data-model="car">
+              <span class="tab-dot"></span> Autonomous EV Car
+            </button>
+            <button class="reality-tab" data-model="building">
+              <span class="tab-dot"></span> Smart Industrial Plant
+            </button>
+            <button class="reality-tab" data-model="cockpit">
+              <span class="tab-dot"></span> VR Flight &amp; Drive Rig
+            </button>
+          </div>
+
+          <div class="reality-split">
+            <div class="reality-code-panel">
+              <div class="reality-code-header">
+                <span class="mono-label">SOURCE BLUEPRINT</span>
+                <span id="reality-lang-badge" class="lang-pill">C++ / WebGL</span>
+              </div>
+              <pre id="reality-code-snippet" class="reality-code"></pre>
+              <div class="compile-progress-wrap">
+                <div class="compile-label">
+                  <span>SYNTHESIZING GEOMETRY</span>
+                  <span id="reality-percent">100%</span>
+                </div>
+                <div class="compile-bar"><span id="reality-bar-fill"></span></div>
+              </div>
+            </div>
+
+            <div class="reality-beam" aria-hidden="true">
+              <div class="beam-line"></div>
+              <div class="beam-node">⚡</div>
+            </div>
+
+            <div class="reality-canvas-wrap">
+              <canvas id="reality-canvas"></canvas>
+              <div class="reality-overlay-tag" id="reality-model-label">MODEL: EV-CHASSIS_V4</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. AI ASSISTANT HOLOGRAM ANIMATION -->
+    <section class="ai-section" id="ai-assistant">
+      <div class="container">
+        <div class="ai-hologram-card glass-panel">
+          <div class="ai-visual-col">
+            <div class="hologram-emitter">
+              <div class="holo-ring ring-1"></div>
+              <div class="holo-ring ring-2"></div>
+              <div class="holo-ring ring-3"></div>
+              <div class="holo-core" id="holo-core">
+                <div class="holo-eye-row">
+                  <span></span><span></span>
+                </div>
+                <div class="holo-wave">
+                  <i></i><i></i><i></i><i></i><i></i>
+                </div>
+              </div>
+              <div class="holo-base-beam"></div>
+            </div>
+          </div>
+
+          <div class="ai-content-col">
+            <span class="section-tag">INTERACTIVE AI HOLOGRAM</span>
+            <h2 id="ai-headline">Your Future Starts Here.</h2>
+            <p id="ai-message" class="ai-message">
+              I am <strong>SARVAGYA-AI</strong>, your holographic guide to immersive AR/VR labs and automotive software engineering. Interact with a prompt below to preview a track.
+            </p>
+
+            <div class="ai-prompt-chips">
+              <button class="ai-chip active" data-headline="Your Future Starts Here." data-msg="I am SARVAGYA-AI, your holographic guide to immersive AR/VR labs and automotive software engineering. Interact with a prompt below to preview a track.">
+                ✨ Future Vision
+              </button>
+              <button class="ai-chip" data-headline="Master Spatial AR &amp; VR" data-msg="Build interactive 3D worlds, industrial safety simulators, and WebXR applications with real-time mentor feedback and spatial computing kits.">
+                🥽 AR / VR Track
+              </button>
+              <button class="ai-chip" data-headline="Engineer Next-Gen Mobility" data-msg="Dive into digital twin vehicle dynamics, ADAS sensor fusion, and futuristic cockpit UI engineering used by leading automotive teams.">
+                🚘 Automotive Software
+              </button>
+              <button class="ai-chip" data-headline="Deploy Enterprise Training" data-msg="Transform complex factory SOPs into safe, measurable, multi-user VR training modules that cut onboarding time by up to 60%.">
+                🏭 Industrial Solutions
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. INTERACTIVE DIGITAL GLOBE -->
+    <section class="globe-section" id="global-network">
+      <div class="container">
+        <div class="globe-layout">
+          <div class="globe-info">
+            <span class="section-tag">GLOBAL TECH ECOSYSTEM</span>
+            <h2>Connected to <span class="gradient-text">Global Innovation</span></h2>
+            <p>
+              Drag the interactive 3D digital globe to explore how Sarvagya Institute connects learners, automotive R&amp;D hubs, and immersive simulation labs across the world.
+            </p>
+            <div class="globe-metrics">
+              <div class="g-metric">
+                <span class="g-val cyan">18+</span>
+                <span class="g-lbl">Global Tech Hubs</span>
+              </div>
+              <div class="g-metric">
+                <span class="g-val pink">24/7</span>
+                <span class="g-lbl">Cloud VR Labs</span>
+              </div>
+              <div class="g-metric">
+                <span class="g-val gold">99.9%</span>
+                <span class="g-lbl">Sim Uptime</span>
+              </div>
+            </div>
+            <p class="globe-hint">🖱️ Tip: Click and drag the globe to rotate the network</p>
+          </div>
+
+          <div class="globe-canvas-wrap glass-panel">
+            <canvas id="globe-canvas"></canvas>
+            <div class="globe-hud-label">LIVE TELEMETRY // DRAG TO ORBIT</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 10. PREMIUM FOOTER -->
+  <footer class="premium-footer">
+    <canvas id="footer-particles" aria-hidden="true"></canvas>
+    <div class="footer-neon-line"></div>
+
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="nav-brand">
+            <div class="nav-logo-badge">
+              <img src="assets/logo.png" alt="Sarvagya Institute Logo" />
+            </div>
+            <div class="nav-brand-text">
+              <span class="brand-title">SARVAGYA</span>
+              <span class="brand-sub">INSTITUTE</span>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Sarvagya Institute – Innovating the Future with AR, VR &amp; Automotive Software. Helping industries and individuals adopt modern technologies through immersive experiences and practical learning.
+          </p>
+          <div class="social-row">
+            <a href="#home" class="social-icon" aria-label="LinkedIn">in</a>
+            <a href="#home" class="social-icon" aria-label="GitHub">gh</a>
+            <a href="#home" class="social-icon" aria-label="YouTube">▶</a>
+            <a href="#home" class="social-icon" aria-label="X">𝕏</a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Core Areas</h4>
+          <a href="#programs">Augmented Reality (AR)</a>
+          <a href="#programs">Virtual Reality (VR)</a>
+          <a href="#programs">Automotive Software</a>
+          <a href="#programs">Industrial Training</a>
+          <a href="#programs">Software Development</a>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>Interactive Labs</h4>
+          <a href="#home">Live Code → VR Engine</a>
+          <a href="#reality-lab">Software-to-Reality</a>
+          <a href="#ai-assistant">SARVAGYA-AI Hologram</a>
+          <a href="#global-network">Global Digital Globe</a>
+          <button id="replay-loader-btn" class="replay-btn">↺ Replay Intro</button>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Sarvagya Institute. Transforming Ideas into Immersive Digital Experiences.</span>
+        <span class="footer-status"><i class="status-dot"></i> All Simulation Systems Operational</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
